@@ -23,14 +23,16 @@ const Login = ({ setToken }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // change the ip as per local ip
       const response = await axios.post('http://127.0.0.1:8000/api/login/', formData);
       const accessToken = response.data.access;
       setToken(accessToken);
-      localStorage.setItem('accessToken', accessToken); // Store access token in local storage
+      // store data in local storege and get when required
+      localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('refreshToken', response.data.refresh);
-      localStorage.setItem('username', formData.username); // Save username in local storage
+      localStorage.setItem('username', formData.username);
       setErrorMessage('');
-      navigate('/health-info'); // Redirect to Health Guide page
+      navigate('/health-info');
     } catch (error) {
       console.error(error);
       setErrorMessage('Invalid username or password');
@@ -41,14 +43,14 @@ const Login = ({ setToken }) => {
     <div className="container d-flex justify-content-center align-items-center vh-100">
       <div className="row justify-content-center">
         <div className="col-md-6">
-          <div className="card login_card">
-            <div className="card-body shadow">
+              <div className="card login_card">
+        <div className="card-body shadow">
               <h3 className="card-title text-center fw-semibold">Login</h3>
               <form onSubmit={handleSubmit}>
-                <div className="form-group mb-3">
+            <div className="form-group mb-3">
                   <label htmlFor="username">Username</label>
                   <div className="input-group">
-                    <div className="input-group-prepend input-group-text">
+                  <div className="input-group-prepend input-group-text">
                       <span><FontAwesomeIcon icon={faUser} /></span>
                     </div>
                     <input
@@ -65,10 +67,10 @@ const Login = ({ setToken }) => {
                 <div className="form-group mb-3">
                   <label htmlFor="password">Password</label>
                   <div className="input-group">
-                    <div className="input-group-prepend input-group-text">
+                <div className="input-group-prepend input-group-text">
                       <span><FontAwesomeIcon icon={faLock} /></span>
-                    </div>
-                    <input
+                  </div>
+                  <input
                       type="password"
                       className="form-control"
                       id="password"
@@ -81,9 +83,9 @@ const Login = ({ setToken }) => {
                 </div>
                 <button type="submit" className="btn btn-primary btn-block mx-auto d-block d_blue">Login</button>
                 {errorMessage && <p className="text-danger mt-3">{errorMessage}</p>}
-                <div className="text-center mt-3">
-                  <Link to="/register">Don't have an account? Register</Link>
-                </div>
+          <div className="text-center mt-3">
+            <Link to="/register">Don't have an account? Register</Link>
+          </div>
               </form>
             </div>
           </div>

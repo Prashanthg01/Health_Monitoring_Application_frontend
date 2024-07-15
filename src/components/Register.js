@@ -26,6 +26,7 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            // change the ip as per local ip
             const response = await axios.post('http://127.0.0.1:8000/api/register/', formData);
             console.log(response.data);
             setSuccessMessage('Registration successful!');

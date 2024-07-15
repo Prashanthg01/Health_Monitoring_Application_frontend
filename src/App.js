@@ -4,25 +4,25 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import Register from './components/Register';
 import Login from './components/Login';
 import Logout from './components/Logout';
-import HealthGuide from './HealthGuide'; // Add your HealthGuide component
+import HealthGuide from './HealthGuide';
 import axios from 'axios';
+// import Chatbot from './Chatbot';
 
 function App() {
   const [token, setToken] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Retrieve token from localStorage on app initialization and verify it
   useEffect(() => {
     const storedToken = localStorage.getItem('accessToken');
     if (storedToken) {
-      // Verify the token
+      // Verify the token here
       axios
         .post('http://127.0.0.1:8000/api/token/verify/', { token: storedToken })
         .then(response => {
           setToken(storedToken);
         })
         .catch(error => {
-          console.error('Token verification failed:', error);
+          console.error('Token failed:', error);
           setToken(null);
           localStorage.removeItem('accessToken');
         })
@@ -33,7 +33,7 @@ function App() {
       setIsLoading(false);
     }
   }, []);
-
+// loding animation 
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -41,9 +41,11 @@ function App() {
   return (
     <div className="App">
       <Router>
+        {/* <Chatbot> */} 
         <div className="App">
           <Routes>
             <Route path="/register" element={<Register />} />
+            {/* <Route path="/logout" element={<logout />} /> */}
             <Route path="/login" element={<Login setToken={setToken} />} />
             <Route 
               path="/logout" 
